@@ -1,22 +1,34 @@
 """
 Tools for EcoHome Energy Advisor Agent
 """
+import math
 import os
 import json
 import random
 from datetime import datetime, timedelta
 from typing import Dict, Any
 from langchain_core.tools import tool
-from langchain_chroma import Chroma
-from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings.openai import OpenAIEmbeddings
+from langchain_community.vectorstores.chroma import Chroma
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from models.energy import DatabaseManager
+import openai
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_base = "https://openai.vocareum.com/v1"
+
+
+def get_embeddings():
+    return OpenAIEmbeddings(
+        openai_api_base="https://openai.vocareum.com/v1",
+        openai_api_key=os.getenv("OPENAI_API_KEY"),
+    )
+
 
 # Initialize database manager
 db_manager = DatabaseManager()
 
-# TODO: Implement get_weather_forecast tool
 @tool
 def get_weather_forecast(location: str, days: int = 3) -> Dict[str, Any]:
     """
@@ -28,33 +40,78 @@ def get_weather_forecast(location: str, days: int = 3) -> Dict[str, Any]:
     
     Returns:
         Dict[str, Any]: Weather forecast data including temperature, conditions, and solar irradiance
-        E.g:
-        forecast = {
-            "location": ...,
-            "forecast_days": ...,
-            "current": {
-                "temperature_c": ...,
-                "condition": random.choice(["sunny", "partly_cloudy", "cloudy"]),
-                "humidity": ...,
-                "wind_speed": ...
-            },
-            "hourly": [
-                {
-                    "hour": ..., # for hour in range(24)
-                    "temperature_c": ...,
-                    "condition": ...,
-                    "solar_irradiance": ...,
-                    "humidity": ...,
-                    "wind_speed": ...
-                },
-            ]
-        }
     """
-    # Mock weather API or call OpenWeatherMap or similar
-    
-    return 
+    rng = random.Random(hash(location) & 0xFFFFFFFF)
+    conditions = ["sunny", "partly_cloudy", "cloudy", "rainy"]
+    weights = [0.55, 0.20, 0.15, 0.10]
 
-# TODO: Implement get_electricity_prices tool
+    loc = location.lower()
+    if any(x in loc for x in ["miami", "phoenix", "los angeles", "san diego", "houston"]):
+        base_temp = 24
+    elif any(x in loc for x in ["chicago", "boston", "new york", "minneapolis"]):
+        base_temp = 12
+    elif any(x in loc for x in ["seattle", "portland", "san francisco", "denver"]):
+        base_temp = 15
+    else:
+        base_temp = 18
+
+    peak_irradiance = {"sunny": 850, "partly_cloudy": 520, "cloudy": 180, "rainy": 55}
+
+    forecast_days = []
+    for day_offset in range(days):
+        day_date = datetime.now() + timedelta(days=day_offset)
+        condition = rng.choices(conditions, weights=weights)[0]
+        daily_high = base_temp + rng.uniform(-3, 6)
+
+        hourly = []
+        for hour in range(24):
+            # diurnal cycle: coldest ~6am, warmest ~3pm
+            if 6 <= hour <= 15:
+                t_offset = (hour - 6) / 9 * 6
+            elif hour > 15:
+                t_offset = max(0.0, (1 - (hour - 15) / 8) * 6)
+            else:
+                t_offset = 0.0
+            temp = daily_high - 4 + t_offset + rng.uniform(-0.5, 0.5)
+
+            if 6 <= hour <= 19:
+                irradiance = peak_irradiance[condition] * math.exp(-0.5 * ((hour - 13) / 3.2) ** 2)
+                irradiance = max(0.0, irradiance + rng.uniform(-25, 25))
+            else:
+                irradiance = 0.0
+
+            hourly.append({
+                "hour": hour,
+                "temperature_c": round(temp, 1),
+                "condition": condition,
+                "solar_irradiance": round(irradiance, 1),
+                "humidity": rng.randint(30, 75),
+                "wind_speed": round(rng.uniform(3, 22), 1)
+            })
+
+        solar_hours = [h["hour"] for h in hourly if h["solar_irradiance"] > 150]
+        forecast_days.append({
+            "date": day_date.strftime("%Y-%m-%d"),
+            "condition": condition,
+            "max_temp_c": round(daily_high + 2, 1),
+            "min_temp_c": round(daily_high - 4, 1),
+            "peak_solar_start": solar_hours[0] if solar_hours else 10,
+            "peak_solar_end": solar_hours[-1] if solar_hours else 16,
+            "hourly": hourly
+        })
+
+    return {
+        "location": location,
+        "forecast_days": days,
+        "current": {
+            "temperature_c": round(base_temp + rng.uniform(-2, 4), 1),
+            "condition": forecast_days[0]["condition"],
+            "humidity": rng.randint(40, 70),
+            "wind_speed": round(rng.uniform(5, 15), 1)
+        },
+        "daily_forecast": forecast_days
+    }
+
 @tool
 def get_electricity_prices(date: str = None) -> Dict[str, Any]:
     """
@@ -64,33 +121,45 @@ def get_electricity_prices(date: str = None) -> Dict[str, Any]:
         date (str): Date in YYYY-MM-DD format (defaults to today)
     
     Returns:
-        Dict[str, Any]: Electricity pricing data with hourly rates 
-        E.g: 
-        prices = {
-            "date": ...,
-            "pricing_type": "time_of_use",
-            "currency": "USD",
-            "unit": "per_kWh",
-            "hourly_rates": [
-                {
-                    "hour": .., # for hour in range(24)
-                    "rate": ..,
-                    "period": ..,
-                    "demand_charge": ...
-                }
-            ]
-        }
+        Dict[str, Any]: Electricity pricing data with hourly rates
     """
     if date is None:
         date = datetime.now().strftime("%Y-%m-%d")
-    
-    # Mock electricity pricing - in real implementation, this would call a pricing API
-    # Use a base price per kWh    
-    # Then generate hourly rates with peak/off-peak pricing
-    # Peak normally between 6 and 22...
-    # demand_charge should be 0 if off-peak
 
-    return 
+    # PG&E-style TOU-E schedule
+    tou = {
+        "off_peak": {"hours": list(range(0, 7)) + [23], "rate": 0.08},
+        "mid_peak": {"hours": list(range(7, 16)) + [21, 22], "rate": 0.15},
+        "peak":     {"hours": list(range(16, 21)), "rate": 0.28},
+    }
+
+    hourly_rates = []
+    for hour in range(24):
+        for period, cfg in tou.items():
+            if hour in cfg["hours"]:
+                hourly_rates.append({
+                    "hour": hour,
+                    "rate": cfg["rate"],
+                    "period": period,
+                    "demand_charge": round(cfg["rate"] * 0.10, 4) if period == "peak" else 0.0
+                })
+                break
+
+    daily_avg = round(sum(h["rate"] for h in hourly_rates) / 24, 4)
+
+    return {
+        "date": date,
+        "pricing_type": "time_of_use",
+        "currency": "USD",
+        "unit": "per_kWh",
+        "hourly_rates": hourly_rates,
+        "peak_hours": list(range(16, 21)),
+        "off_peak_hours": list(range(0, 7)) + [23],
+        "mid_peak_hours": list(range(7, 16)) + [21, 22],
+        "cheapest_window_start": 0,
+        "cheapest_window_end": 6,
+        "daily_average_rate": daily_avg
+    }
 
 @tool
 def query_energy_usage(start_date: str, end_date: str, device_type: str = None) -> Dict[str, Any]:
@@ -249,18 +318,18 @@ def search_energy_tips(query: str, max_results: int = 5) -> Dict[str, Any]:
         if not os.path.exists(os.path.join(persist_directory, "chroma.sqlite3")):
             # Load documents
             documents = []
-            for doc_path in ["data/documents/tip_device_best_practices.txt", "data/documents/tip_energy_savings.txt"]:
-                if os.path.exists(doc_path):
-                    loader = TextLoader(doc_path)
-                    docs = loader.load()
-                    documents.extend(docs)
+            import glob
+            for doc_path in sorted(glob.glob("data/documents/*.txt")):
+                loader = TextLoader(doc_path)
+                docs = loader.load()
+                documents.extend(docs)
             
             # Split documents
             text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
             splits = text_splitter.split_documents(documents)
             
             # Create vector store
-            embeddings = OpenAIEmbeddings()
+            embeddings = get_embeddings()
             vectorstore = Chroma.from_documents(
                 documents=splits,
                 embedding=embeddings,
@@ -268,7 +337,7 @@ def search_energy_tips(query: str, max_results: int = 5) -> Dict[str, Any]:
             )
         else:
             # Load existing vector store
-            embeddings = OpenAIEmbeddings()
+            embeddings = get_embeddings()
             vectorstore = Chroma(
                 persist_directory=persist_directory,
                 embedding_function=embeddings

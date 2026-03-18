@@ -1,7 +1,8 @@
 import os
 from dotenv import load_dotenv
+
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import SystemMessage
+from langchain_core.messages import SystemMessage, HumanMessage
 from langgraph.prebuilt import create_react_agent
 from tools import TOOL_KIT
 
@@ -12,20 +13,26 @@ class Agent:
     def __init__(self, instructions:str, model:str="gpt-4o-mini"):
 
         # Initialize the LLM
+
+        
         llm = ChatOpenAI(
-            model=model,
+            model="gpt-3.5-turbo",
             temperature=0.0,
             base_url="https://openai.vocareum.com/v1",
-            api_key=os.getenv("VOCAREUM_API_KEY")
+            api_key=os.getenv("OPENAI_API_KEY"),
         )
+
+        self.instructions = instructions
 
         # Create the Energy Advisor agent
         self.graph = create_react_agent(
-            name="energy_advisor",
-            prompt=SystemMessage(content=instructions),
+            # name="energy_advisor",
+            # prompt=SystemMessage(content=instructions),
             model=llm,
             tools=TOOL_KIT,
         )
+
+
 
     def invoke(self, question: str, context:str=None) -> str:
         """
@@ -51,11 +58,13 @@ class Agent:
         )
         
         # Get response from the agent
-        response = self.graph.invoke(
-            input= {
-                "messages": messages
-            }
-        )
+        response = self.graph.invoke({
+            "messages": [
+                SystemMessage(content=self.instructions),
+                HumanMessage(content=question),
+            ]
+        })
+
         
         return response
 

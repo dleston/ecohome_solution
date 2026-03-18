@@ -1,0 +1,19 @@
+Smart Home Automation for Energy Efficiency
+
+Occupancy-based control is the single most effective automation strategy. PIR or millimeter-wave occupancy sensors can cut lighting energy by 30–50% and HVAC standby losses by 15–25% by automatically turning off loads in unoccupied rooms. Place sensors in every room with an HVAC vent and overhead lights.
+
+Smart plugs with energy monitoring identify phantom loads — devices that draw power in standby. A typical home has 30–50 standby loads totaling 50–100 W continuously. Smart plugs on entertainment centers, office equipment, and charger banks can eliminate these completely when the room is unoccupied.
+
+Geofencing uses smartphone GPS to trigger home/away modes automatically. When the last occupant leaves a defined perimeter (e.g., 1 mile from home), the automation sets HVAC to setback mode, turns off non-essential loads, and activates security devices. Arrival triggers resume comfort setpoints 20–30 minutes before return, given the preheat/cool time.
+
+Time-based schedules work best for predictable routines. Program dishwashers, washing machines, EV chargers, and water heaters to start during off-peak rate windows (typically 10 PM–6 AM) or during peak solar generation hours (10 AM–3 PM for south-facing systems). Most modern appliances support delayed-start timers.
+
+Demand response (DR) programs offered by utilities pay customers to reduce consumption during grid stress events (usually hot summer afternoons). Enrolling smart thermostats and water heaters in these programs generates $50–200/year in bill credits with minimal comfort impact. Verify program availability with your utility.
+
+Solar-aware automation adjusts device schedules based on real-time or forecast solar production. When the solar system is exporting excess power to the grid at unfavorable net metering rates, automation can redirect that power to run the dishwasher, heat water, or charge the EV at no effective cost.
+
+Scene-based control reduces the cognitive load of energy management. Define an "Away" scene (setback HVAC, off lights, smart plugs off, EV charging paused), a "Sleep" scene (dim bedrooms, HVAC setback 4°F, pool pump off), and a "Solar Peak" scene (run deferred loads, pre-cool, heat water). One tap activates all settings.
+
+Notification-driven optimization alerts occupants to high-cost or high-usage conditions: "Electricity prices are at peak rate until 9 PM. Consider delaying your dryer cycle." These nudges, combined with energy dashboards, have been shown to reduce consumption by 8–12% through behavioral change alone.
+
+Integration with weather APIs enables predictive automation. A cloudy forecast can trigger: preheating water with resistance elements the night before (when solar contribution will be low), pre-cooling or prewarming the home using off-peak power before an extreme temperature day, and postponing EV charging to a window with better grid carbon intensity.

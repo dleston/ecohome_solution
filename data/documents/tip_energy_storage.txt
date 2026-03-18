@@ -1,0 +1,19 @@
+Home Energy Storage Optimization
+
+Battery chemistry and key metrics: most residential batteries use lithium iron phosphate (LFP) or nickel manganese cobalt (NMC) chemistry. LFP offers a longer cycle life (3,000–6,000 cycles at 80% depth of discharge) and better thermal stability. NMC provides higher energy density (useful in space-constrained installs) but degrades faster. Depth of discharge (DoD): do not regularly discharge below 10–20% state of charge (SoC) unless the system is DoD-rated to 90%+. Keeping SoC between 10% and 90% extends battery life by 30–50%.
+
+Sizing: a common residential system is 10–15 kWh usable capacity, sufficient to cover evening loads from solar generated during the day or provide 8–12 hours of essential load backup. To size for self-consumption: calculate average evening consumption from 5 PM to midnight (typically 5–10 kWh for a medium home). To size for backup: sum the wattage of circuits you want backed up and multiply by hours of desired autonomy.
+
+Peak-shaving strategy: charge the battery during off-peak hours (midnight–6 AM at $0.08/kWh) and discharge during peak hours (4–9 PM at $0.28/kWh). Savings per full cycle: (0.28 - 0.08) × usable_kWh = $0.20 × usable_kWh. For a 10 kWh battery, that's $2.00/day or ~$60/month, representing a 6–8 year financial payback depending on installation costs.
+
+Solar self-consumption strategy: charge from excess solar generation (when generation exceeds consumption and net metering export rates are low), then discharge during evening peak hours. This is the most common and economically superior use case where export rates are below retail.
+
+Backup power configuration: most inverters offer a "backup gateway" that islands the home from the grid during an outage. Essential loads — refrigerator (~150 W), lights (~100 W), medical devices, router — typically draw 300–500 W. A 10 kWh battery provides 20–30 hours of essential load backup. EV chargers, HVAC compressors, and electric ranges are generally not included in the backup circuit due to high peak current demands.
+
+Charge rate management: fast charging at the battery's maximum rate (e.g., 5 kW continuous for a 10 kWh unit) generates more heat and stresses cells more than moderate charging (2–3 kW). Where time is not critical, charge at 50–70% of maximum rate to extend battery life.
+
+Temperature effects: lithium batteries lose charge-acceptance efficiency below 32°F (0°C). Batteries installed in garages in cold climates should have thermal management enabled. Capacity is rated at 77°F (25°C); expect 15–20% capacity reduction at freezing temperatures.
+
+Grid services and virtual power plants (VPP): utilities and aggregators in some markets pay battery owners to dispatch stored energy during grid emergencies. Enrollment in VPP programs can generate $200–500/year in additional revenue. The system typically reserves 20% SoC for this purpose, limiting self-consumption use only slightly.
+
+State of Health (SoH) monitoring: track battery capacity over time using the inverter's monitoring portal. New batteries are rated at 100% SoH; warranties typically guarantee 70% SoH after 10 years or a specified number of cycles. A sudden SoH drop indicates a cell imbalance issue that warrants a service call.

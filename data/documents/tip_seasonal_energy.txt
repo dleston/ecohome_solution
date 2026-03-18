@@ -1,0 +1,29 @@
+Seasonal Energy Management Strategies
+
+Spring (March–May)
+Spring is the lowest-cost season for energy in most climates. Mild temperatures reduce both heating and cooling loads. Use this period to: schedule HVAC maintenance before summer demand peaks drive up service costs; re-seal weatherstripping and caulk any air infiltration points; reprogram thermostat schedules from winter to shoulder-season settings (cooling setpoint can often be as high as 80°F/26.7°C when outdoor temperatures are below 70°F). Ceiling fans running counterclockwise at low speed improve comfort enough to raise the thermostat 3–4°F with no discomfort.
+
+Summer (June–August)
+Summer peak-demand periods drive the highest electricity rates. Key strategies:
+
+Pre-cooling: In TOU-rate markets, drop thermostat to 74°F (23.3°C) before the 4 PM peak window, then let the home coast to 80°F (26.7°C) by 9 PM. This shifts 1–2 kWh of daily cooling load from peak ($0.28/kWh) to mid-peak or off-peak rates, saving $0.20–0.40 per cycle or roughly $15–30 per month.
+
+Shade management: close blinds and curtains on south and west-facing windows from 11 AM onward. Internal window coverings reduce solar heat gain by 30–40%. Exterior shading (awnings, trees) is more effective, blocking heat before it reaches the glass.
+
+Night-flush ventilation: in climates where overnight temperatures fall below 65°F (18.3°C), open windows after 10 PM and run whole-house fans to flush stored heat from the building mass. Close windows by 7 AM to seal in the cool. This technique can delay air conditioning onset by 2–3 hours.
+
+Pool pump scheduling: shift pump runtime entirely to off-peak hours. An 8-hour filtration cycle run between 10 PM and 6 AM saves the full peak-rate differential. Running at night also reduces evaporative losses.
+
+Autumn (September–November)
+As temperatures moderate, reset thermostat schedules to avoid overcooling. Audit the year's peak charges on the electricity bill and identify the highest-consumption days to understand which loads should be deferred next summer. Service heat pumps before heating season begins.
+
+Winter (December–February)
+Heating loads dominate. Electric resistance heating (strip heaters, electric baseboards) is the most costly option — heat pumps are far more efficient down to roughly -5°F (-20°C) with cold-climate models. Useful strategies:
+
+Setback scheduling: lower heating setpoint from 68°F (20°C) to 60°F (15.5°C) overnight or during away periods. For a well-insulated home, each 1°F reduction in setpoint saves approximately 1–3% on heating costs.
+
+Water heater pre-heating: schedule the water heater to complete its heating cycle by 11 PM (within the off-peak window) so morning hot-water demand draws from stored hot water rather than triggering a morning-peak heating cycle.
+
+Dryer usage: clothes dryers peak around 5 kW. Schedule drying cycles for off-peak evenings. Cleaning the lint filter before every load reduces drying time by 15–25%.
+
+Solar generation is lower in winter due to lower sun angles and shorter days. Expect 40–60% of summer production in December–January for most U.S. locations. Configure battery storage (if present) to prioritize self-consumption from the previous day's solar rather than exporting.

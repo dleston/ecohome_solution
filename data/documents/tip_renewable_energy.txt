@@ -1,0 +1,17 @@
+Renewable Energy Integration for Homeowners
+
+Solar panel orientation and tilt angle are the primary determinants of total annual yield. In the northern hemisphere, south-facing panels at a tilt angle equal to the site latitude (e.g., 37° for San Francisco) maximize annual production. West-facing arrays sacrifice 10–15% annual yield but shift production to 2–6 PM — partially overlapping with peak TOU rates, which can improve bill savings even with fewer kWh generated.
+
+System sizing: a common rule of thumb is 1 kW of solar per 1,000 kWh of annual consumption when constrained by roof space. More precisely, divide your annual kWh by the location's peak sun hours × 365 to get the required system size in kW AC. Overbuilding by 20–30% is economical when battery storage is planned because excess generation charges batteries during high-production windows.
+
+Net metering (NEM) programs credit solar exports to the grid at retail or near-retail rates. Under NEM 3.0 in California, export rates have been reduced significantly, making self-consumption optimization critical. Systems should prioritize using solar on-site (EV charging, water heating, HVAC, battery charging) before exporting.
+
+Microinverters vs. string inverters: microinverters (one per panel) eliminate the "Christmas light" problem where shading of one panel degrades the entire string. They're 5–15% more efficient in installations with partial shading or multiple roof orientations, though they cost 10–20% more upfront. For unshaded south-facing systems, a string inverter with power optimizers is a cost-effective middle ground.
+
+Solar irradiance forecasting: on clear days at mid-latitudes, peak irradiance is approximately 800–1,000 W/m². Partly cloudy conditions average 400–600 W/m², and overcast skies produce 100–200 W/m². A 6 kW system under peak irradiance generates ~4.8–5 kW AC output (accounting for inverter efficiency and temperature derating). Temperature derating reduces output approximately 0.3–0.5% per °C above 25°C (77°F).
+
+Feed-in tariff vs. self-consumption: when export rates are below the retail rate (typical in most markets), each kWh consumed on-site avoids the full retail electricity charge, while each exported kWh earns only the export rate. For a $0.28/kWh retail rate vs. $0.08/kWh export rate, self-consuming an extra 1 kWh is worth $0.20 more than exporting it. This drives the economics of battery storage and flexible load scheduling.
+
+Panel maintenance: degradation rate is typically 0.5–0.7% per year, reaching roughly 80% of original output after 25–30 years. Periodic cleaning (2–4 times/year in dusty climates) maintains output; studies show soiling can reduce generation by 5–25% in arid regions. Monitoring per-panel performance through microinverters or optimizers identifies failures within days rather than after months of lost production.
+
+Wind micro-generation is viable in specific sites with average wind speeds above 5 m/s and minimal turbulence from surrounding structures. A small residential turbine (2–10 kW) can complement solar generation, particularly in winter when solar production is lower and wind resources are typically stronger in many regions.

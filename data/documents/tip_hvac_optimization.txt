@@ -1,0 +1,21 @@
+HVAC Optimization Strategies for Smart Homes
+
+Heat pumps are significantly more efficient than resistance heating. A cold-climate heat pump (HSPF2 ≥ 9) can deliver 2–4 units of heat per unit of electricity consumed, reducing heating costs by 40–65% compared to electric strip heating. Consider upgrading when your current system is over 12 years old.
+
+Zoning systems divide the home into independently controlled areas, eliminating conditioning of unoccupied rooms. A two-zone setup typically cuts HVAC energy use by 20–30%. Smart zone controllers can integrate with occupancy sensors and weather forecasts to further automate adjustments.
+
+Setpoint scheduling reduces runtime during unoccupied periods. A common strategy: set heating to 62°F (16.5°C) and cooling to 82°F (27.8°C) when the house is empty or during sleeping hours. The ENERGY STAR recommended setpoints are 68°F heating / 78°F cooling when occupied.
+
+Pre-cooling is effective in regions with TOU electricity pricing. On days when peak rates apply (typically 4–9 PM), cool the home to 74°F (23.3°C) before the peak window, then let the temperature drift to 80°F (26.7°C) during peak hours. This shifts 1–3 kWh of compressor load to off-peak pricing.
+
+Duct sealing delivers significant returns. Average homes lose 20–30% of conditioned air through leaky ducts. Sealing with mastic or metal tape (not standard duct tape) and adding insulation to ducts in unconditioned spaces can cut HVAC consumption by 15–20%.
+
+Variable-speed (inverter-driven) compressors modulate output to match real-time load instead of cycling on/off at full capacity. This improves efficiency by 20–40% compared to single-speed units and dramatically reduces compressor wear.
+
+Air filter maintenance is the highest-ROI maintenance task. A dirty filter increases static pressure and forces the blower to work harder. Replace 1-inch filters monthly during high-use seasons, or upgrade to a 4-inch media filter (changed every 6–12 months) for improved filtration and lower pressure drop.
+
+Annual coil cleaning keeps the system operating at rated efficiency. Dirty condenser coils reduce heat rejection capacity by up to 30%, increasing refrigerant pressure and compressor energy use. Clean evaporator coils prevent ice formation and reduced airflow.
+
+Smart thermostat integration: when paired with a weather API, the thermostat can begin pre-conditioning 1–2 hours before a predicted heat or cold event, spread the load across lower-rate periods, and integrate solar generation forecasts to run more aggressively when free solar power is available.
+
+Economizer mode uses outside air for free cooling when outdoor temperatures fall below indoor setpoints (typically below 65°F/18°C). Enabling economizer operation on compatible systems can eliminate compressor operation during mild-weather shoulder seasons, saving 10–20% annually in moderate climates.

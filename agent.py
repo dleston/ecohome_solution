@@ -46,24 +46,12 @@ class Agent:
             str: The advisor's response with recommendations
         """
         
-        messages = []
+        messages = [SystemMessage(content=self.instructions)]
         if context:
-            # Add some context to the question as a system message
-            messages.append(
-                ("system", context)
-            )
+            messages.append(SystemMessage(content=context))
+        messages.append(HumanMessage(content=question))
 
-        messages.append(
-            ("user", question)
-        )
-        
-        # Get response from the agent
-        response = self.graph.invoke({
-            "messages": [
-                SystemMessage(content=self.instructions),
-                HumanMessage(content=question),
-            ]
-        })
+        response = self.graph.invoke({"messages": messages})
 
         
         return response
